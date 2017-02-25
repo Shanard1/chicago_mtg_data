@@ -1,7 +1,8 @@
 from bs4 import BeautifulSoup
 
-from targets.card_model import DiceDojoCard
+from targets.card_models import DiceDojoCard
 from utils.browser import br
+
 
 def card_search(url, card):
     # Returns a browser object from a URL
@@ -17,6 +18,7 @@ def card_search(url, card):
         search_results = dojo_browser.geturl()
     except Exception as e:
         print e
+
     return search_results
 
 

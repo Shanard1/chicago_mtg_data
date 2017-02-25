@@ -6,15 +6,19 @@ card_classes = ['variant_info', 'price', 'qty']
 dev_card_class = 'product_row'
 dojo_url = config['source']['dice_dojo']
 
-card_query = card_search(dojo_url, query_card)
 
-if card_query:
-    card_results = get_class(card_query, dev_card_class)
+def dice_dojo_lookup(card):
+    card_query = card_search(dojo_url, card)
 
-    if card_results:
-        products = create_products(card_results)
+    if card_query:
+        card_results = get_class(card_query, dev_card_class)
 
-        example = create_cards(products)
+        if card_results:
+            products = create_products(card_results)
 
-        for e in example:
-            print e.__dict__
+            cards = create_cards(products)
+
+            if cards:
+                print 'Dice Dojo Output ##########'
+                for card in cards:
+                    print card.__dict__

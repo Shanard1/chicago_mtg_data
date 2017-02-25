@@ -1,6 +1,6 @@
 from bs4 import BeautifulSoup
 
-from targets.card_model import DiceDojoCard
+from targets.card_models import DiceDojoCard
 from utils.browser import br
 from utils.settings import config, dev
 
