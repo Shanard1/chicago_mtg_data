@@ -45,9 +45,15 @@ def get_class(url, card_class):
     except Exception as e:
         print e
     category_names = BeautifulSoup(str(product_table)).stripped_strings
+
+    #print len(product_table)
+
     for cat in category_names:
         if cat not in [',', '[', ']', ':']:
             results.append(cat.encode('utf-8'))
+
+    #print results
+
     return results
 
 
@@ -62,9 +68,12 @@ def create_products(card_name, card_list):
 
     product_row_markers = []
 
+    card_count = 0
+
     for i in xrange(len(card_list)):
-        if str(card_list[i]).startswith(card_name):
-            product_row_markers.append(i)
+        if str(card_list[i]) == 'View Product':
+            product_row_markers.append(i-4)
+            card_count += 1
 
     for i in product_row_markers:
         if product_row_markers.index(i) != len(product_row_markers) - 1:
@@ -78,7 +87,7 @@ def create_products(card_name, card_list):
     return product_rows
 
 
-def create_cards(product_list):
+def create_cards(card_name, product_list):
     '''
     :param product_list: list of lists broken out by card variant
     :return: each card variant as a class
@@ -96,7 +105,8 @@ def create_cards(product_list):
                 qty      =int(re.search(r'\d+', product_row[3]).group()),
                 price    ='{:.2f}'.format(float(product_row[7].strip('$')))
             )
-            created_cards.append(new_card)
+            if card_name in str(new_card.name):
+                created_cards.append(new_card)
         elif len(product_row) == 8:
             #print 'Out of stock'
             new_card = CardMarketCard(
@@ -106,7 +116,8 @@ def create_cards(product_list):
                 qty      =0,
                 price    ='{:.2f}'.format(float(product_row[6].strip('$')))
             )
-            created_cards.append(new_card)
+            if card_name in str(new_card.name):
+                created_cards.append(new_card)
         else:
             #print 'Multiple {} {} cards will be made'.format(len(product_row), (len(product_row)-5)/3)
             card_qty = (len(product_row)-5)/3
@@ -119,16 +130,7 @@ def create_cards(product_list):
                     price    ='{:.2f}'.format(float(product_row[(i*3)+7].strip('$')))
 
                 )
-                created_cards.append(new_card)
+                if card_name in str(new_card.name):
+                    created_cards.append(new_card)
+
     return created_cards
-
-'''
-['Wooded Foothills', 'Onslaught', '$27.00', 'Out of Stock', 'View Product', 'Add to wishlist to be notified when the item is in stock.', '$27.00', 'Wishlist',
- 'Wooded Foothills', 'Khans of Tarkir', '$16.40', 'Out of Stock', 'View Product', 'Add to wishlist to be notified when the item is in stock.', '$16.40', 'Wishlist',
- 'Wooded Foothills - Foil', 'Onslaught', '$150.00', '2 In Stock', 'View Product', 'NM-Mint, English,', '1 In Stock', '$150.00',
-                                                                                  'Light Play, English,', '1 In Stock', '$120.00',
- 'Wooded Foothills - Foil', 'Battle For Zendikar - Expeditions', '$92.00', '1 In Stock', 'View Product', 'NM-Mint, English,', '1 In Stock', '$92.00',
- 'Wooded Foothills - Foil', 'Khans of Tarkir', '$43.90', 'Out of Stock', 'View Product', 'Add to wishlist to be notified when the item is in stock.', '$43.90', 'Wishlist',
- 'Wooded Foothills - Foil DCI Judge Promo', 'Promos: Judge Rewards', '$110.00', 'Out of Stock', 'View Product', 'Add to wishlist to be notified when the item is in stock.', '$110.00', 'Wishlist']
-
-'''

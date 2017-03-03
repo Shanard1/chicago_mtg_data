@@ -1,8 +1,6 @@
 from targets.dice_dojo.actions.dojo import card_search, get_class, create_products, create_cards
 from utils.settings import config
 
-query_card = 'World Breaker'
-card_classes = ['variant_info', 'price', 'qty']
 dev_card_class = 'product_row'
 dojo_url = config['source']['dice_dojo']
 
@@ -16,7 +14,7 @@ def dice_dojo_lookup(card):
         if card_results:
             products = create_products(card_results)
 
-            cards = create_cards(products)
+            cards = create_cards(card, products)
 
             if cards:
                 print 'Dice Dojo Output ##########'

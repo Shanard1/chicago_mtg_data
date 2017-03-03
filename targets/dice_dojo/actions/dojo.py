@@ -68,7 +68,7 @@ def create_products(card_list):
     return product_rows
 
 
-def create_cards(product_list):
+def create_cards(card_name, product_list):
     '''
     :param product_list: list of lists broken out by card variant
     :return: each card variant as a class
@@ -85,7 +85,8 @@ def create_cards(product_list):
                 qty      =0,
                 price    ='{:.2f}'.format(float(product_row[5].strip('$')))
             )
-            created_cards.append(new_card)
+            if card_name in str(new_card.name):
+                created_cards.append(new_card)
         else:
             card_qty = (len(product_row)-3)/4
             for i in xrange(card_qty):
@@ -96,6 +97,7 @@ def create_cards(product_list):
                     price    ='{:.2f}'.format(float(product_row[5].strip('$'))),
                     qty      =int(product_row[(i * 4)+6].strip('x '))
                 )
-                created_cards.append(new_card)
+                if card_name in str(new_card.name):
+                    created_cards.append(new_card)
 
     return created_cards
