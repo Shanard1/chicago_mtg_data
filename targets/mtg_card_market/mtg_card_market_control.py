@@ -6,6 +6,9 @@ card_market_url = config['source']['mtg_card_market']
 
 
 def mtg_card_market_lookup(card):
+
+    card_output = []
+
     card_query = market_card_search(card_market_url, card)
 
     if card_query:
@@ -20,5 +23,7 @@ def mtg_card_market_lookup(card):
                 if cards:
                     print 'Card Market Output ########'
                     for output_card in cards:
-                        print output_card.__dict__
+                        card_output.append(output_card.__dict__)
+
+                return card_output
 

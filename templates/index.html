@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+
+{% block title %}Chicago MTG Pricing{% endblock %}
+
+{% block content %}
+    <h3>Chicago MTG Pricing</h3>
+
+    <p>Let's you look up prices and quantities of MTG cards in Chicago.<p>
+
+    <form id="card_search" action="{{ url_for('return_chi_mtg_cards') }}" method="POST">
+         Card Name:<br>
+         <input type="text" name="cardsearch">
+         <button class="btn btn-primary" type="submit">Search</button>
+    </form>
+
+    <div class="row spacer"><div class="col-md-12"><p> </p> </div> </div>
+
+    {% if chi_cards %}
+
+    <div id="object_info">
+        <div class="col-md-12">
+
+            <div class="row">
+            <div class="col-md-12">
+                <table id="card_info"
+                    class="table table-striped"
+                    data-toggle="table">
+                    Dice Dojo Results
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Set</th>
+                            <th>Condition</th>
+                            <th>Qty</th>
+                            <th>Price</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for card in chi_cards["dojo_cards"] %}
+                            <tr>
+                                <td>{{ card.name }} </td>
+                                <td>{{ card.set }} </td>
+                                <td>{{ card.condition }} </td>
+                                <td>{{ card.qty }} </td>
+                                <td>{{ card.price  }} </td>
+                            </tr>
+                        {% endfor %}
+                    MTG Card Market Results
+                        {% for card in chi_cards["market_cards"] %}
+                            <tr>
+                                <td>{{ card.name }} </td>
+                                <td>{{ card.set }} </td>
+                                <td>{{ card.condition }} </td>
+                                <td>{{ card.qty }} </td>
+                                <td>{{ card.price  }} </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            </div>
+        </div>
+  </div>
+    {% else %}
+
+    {% endif %}
+
+
+{% endblock %}
