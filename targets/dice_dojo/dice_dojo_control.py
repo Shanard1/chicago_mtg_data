@@ -20,8 +20,7 @@ def dice_dojo_lookup(card):
             cards = create_cards(card, products)
 
             if cards:
-                print 'Dice Dojo Output ##########'
                 for card_dict in cards:
-                    dojo_output.append(card_dict.__dict__)
+                    dojo_output.append(card_dict.to_gui())
 
-            return cards
+            return dojo_output

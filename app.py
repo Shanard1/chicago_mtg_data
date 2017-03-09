@@ -8,8 +8,6 @@ app=Flask(__name__)
 @app.route('/', methods=['GET', 'POST'])
 def return_chi_mtg_cards():
 
-    chi_cards = None
-
     def blank_card_page():
         return render_template('index.html',
                                card_name=None,
@@ -27,16 +25,16 @@ def return_chi_mtg_cards():
             else:
                 try:
                     chi_cards = card_look_up(search_card)
+                    return render_template('index.html',
+                                           card_name=search_card,
+                                           chi_cards=chi_cards)
                 except Exception as e:
-                    flash(e)
+                    flash('Error searching for results')
+                    print e
+                    return blank_card_page()
         except Exception:
             print e
             return blank_card_page()
-
-        if chi_cards:
-                return render_template('index.html',
-                                       card_name=search_card,
-                                       chi_cards=chi_cards)
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0')

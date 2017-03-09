@@ -22,11 +22,10 @@
 
             <div class="row">
             <div class="col-md-12">
-                <table id="card_info"
-                    class="table table-striped"
-                    data-toggle="table">
-                    Dice Dojo Results
+                <table id="dojo_card_info" class="table table-striped" data-toggle="table">
+                    <caption>Dice Dojo Results</caption>
                     <thead>
+
                         <tr>
                             <th>Name</th>
                             <th>Set</th>
@@ -45,7 +44,20 @@
                                 <td>{{ card.price  }} </td>
                             </tr>
                         {% endfor %}
-                    MTG Card Market Results
+                    </tbody>
+                </table>
+                <table id="market_card_info" class="table table-striped" data-toggle="table">
+                    <caption>MTG Card Market Results</caption>
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Set</th>
+                            <th>Condition</th>
+                            <th>Qty</th>
+                            <th>Price</th>
+                        </tr>
+                    </thead>
+                    <tbody>
                         {% for card in chi_cards["market_cards"] %}
                             <tr>
                                 <td>{{ card.name }} </td>
@@ -60,10 +72,8 @@
             </div>
             </div>
         </div>
-  </div>
+    </div>
     {% else %}
 
     {% endif %}
-
-
 {% endblock %}

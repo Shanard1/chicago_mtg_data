@@ -21,9 +21,8 @@ def mtg_card_market_lookup(card):
                 cards = create_cards(card, products)
 
                 if cards:
-                    print 'Card Market Output ########'
                     for output_card in cards:
-                        card_output.append(output_card.__dict__)
+                        card_output.append(output_card.to_gui())
 
                 return card_output
 
