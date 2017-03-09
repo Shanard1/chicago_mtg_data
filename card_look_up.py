@@ -1,7 +1,7 @@
 from targets.mtg_card_market.mtg_card_market_control import mtg_card_market_lookup
 from targets.dice_dojo.dice_dojo_control import dice_dojo_lookup
 
-query_card = 'Tarmogoyf'
+query_card = 'Polluted Delta'
 
 
 def card_look_up(card):
@@ -11,4 +11,7 @@ def card_look_up(card):
     return {'market_cards': market_cards, 'dojo_cards': dojo_cards}
 
 if __name__=='__main__':
-    card_look_up(query_card)
+    test = card_look_up(query_card)
+
+    print test['market_cards']
+    print test['dojo_cards']

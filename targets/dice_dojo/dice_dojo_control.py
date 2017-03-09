@@ -6,6 +6,9 @@ dojo_url = config['source']['dice_dojo']
 
 
 def dice_dojo_lookup(card):
+
+    dojo_output = []
+
     card_query = card_search(dojo_url, card)
 
     if card_query:
@@ -17,6 +20,7 @@ def dice_dojo_lookup(card):
             cards = create_cards(card, products)
 
             if cards:
-                print 'Dice Dojo Output ##########'
-                for card in cards:
-                    print card.__dict__
+                for card_dict in cards:
+                    dojo_output.append(card_dict.to_gui())
+
+            return dojo_output
